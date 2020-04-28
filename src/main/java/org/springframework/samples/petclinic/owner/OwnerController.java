@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,12 +40,34 @@ import java.util.Map;
 class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+
+    /*
+        의존성주입(DI) 방법
+            1. 생성자를 사용 (객체 사용 강제화 가능) 권장사항
+            2. @Autowired  (순환 참조 발생 방지 [객체 둘다 못만들수도..])
+            3. set 함수 사용
+     */
+
+    /*1.생성자*/
     private final OwnerRepository owners;
-
-
     public OwnerController(OwnerRepository clinicService) {
         this.owners = clinicService;
     }
+
+
+    /*2.필드 인젝션
+    private OwnerRepository owners;
+    @Autowired
+    private OwnerRepository owner;
+    */
+
+    /*3.setter() 사용
+    private OwnerRepository owners;
+    @Autowired
+    public void setOwners(OwnerRepository owners) {
+        this.owners = owners;
+    }
+    */
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {

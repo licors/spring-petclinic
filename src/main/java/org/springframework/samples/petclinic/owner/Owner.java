@@ -59,7 +59,6 @@ public class Owner extends Person {
     private String telephone;
 
     @Column(name = "age")
-    @NotEmpty
     private Integer age;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
